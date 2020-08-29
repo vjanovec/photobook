@@ -1,89 +1,57 @@
 import React, { Fragment, useEffect } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-import CreateAccout from './components/createAccount';
-import Navbar from './components/navbar';
-import StepController from './components/stepController';
+
 import Editor from './components/editor';
+import Navbar from './components/navbar';
+import SelectImages from './components/selectImages';
+import InstagramSignUp from './components/signUpMethods/instagramSignUp';
+import EmailSignUp from './components/signUpMethods/emailSignUp';
+import StepList from './components/stepList';
+import SmallBookPreview from './components/smallBookPreview';
+import UploadPhotosHeading from './components/uploadPhotosHeading';
+import StartHeading from './components/startHeading';
+import AccountDetailsForm from './components/accountDetailsForm';
+import ShippingDetails from './components/shippingDetails';
+
+import Layout from './components/layout';
+
+import UploadPhotos from './components/pages/uploadPhotos';
+import Homepage from './components/pages/homepage';
+import UploadPhotosGallery from './components/pages/uploadPhotosGallery';
+import UploadPhotosInstagram from './components/pages/uploadPhotosInstagram';
+import Verifyig from './verifyig';
 
 import "./App.css";
 import "./assets/css/custom.css";
 import "./assets/css/theme.css";
 import "./assets/css/loaders/loader-pulse.css";
 
-
-import imgIconArrowUp from "./assets/img/icons/interface/icon-arrow-up.svg";
-
+// REDUX
+import { Provider } from 'react-redux';
+import store from './store';
 
 function App() {
-  // useEffect(() => {
-  //   var pages = document.getElementsByClassName("page");
-  //   const book = document.querySelector(".book");
-
-  //   for (var i = 0; i < pages.length; i++) {
-  //     var page = pages[i];
-  //     if (i % 2 === 0) {
-  //       page.style.zIndex = pages.length - i;
-  //     }
-  //   }
-  //     for (var i = 0; i < pages.length; i++) {
-  //       //Or var page = pages[i];
-  //       pages[i].pageNum = i + 1;
-  //       pages[i].onclick = function () {
-  //         if (this.pageNum % 2 === 0) {
-  //           this.classList.remove("flipped");
-  //           this.previousElementSibling.classList.remove("flipped");
-  //         } else {
-  //           this.classList.add("flipped");
-  //           this.nextElementSibling.classList.add("flipped");
-  //         }
-  //       };
-  //       pages[i].style.height = book.clientWidth / 2 + "px";
-  //       pages[i].style.width = book.clientWidth / 2 + "px";
-  //     }
-  //     window.addEventListener("resize", function () {
-  //       for (var i = 0; i < pages.length; i++) {
-  //         pages[i].style.height = book.clientWidth / 2 + "px";
-  //         pages[i].style.width = book.clientWidth / 2 + "px";
-  //       }
-  //     });
-  //   });
-    
-
-    
-
   return (
-    <Fragment>
-      <Navbar />
-      <div
-        data-overlay
-        class="min-vh-100 bg-light d-flex flex-column justify-content-center o-hidden"
-      >
-        {/* <StepController /> */}
-        {/* <CreateAccout /> */}
-        <Editor/>
-        
-      <div class="position-absolute w-50 h-100 top right">
-          <div class="blob bg-primary opacity-20 w-100 h-100 top left"></div>
-        </div>
-      </div>
-
-      {/* <a
-        href="#top"
-        class="btn btn-primary rounded-circle btn-back-to-top"
-        // data-smooth-scroll
-        // data-aos="fade-up"
-        // data-aos-offset="2000"
-        // data-aos-mirror="true"
-        // data-aos-once="false"
-      >
-        <img
-          src={imgIconArrowUp}
-          alt="Icon"
-          class="icon"
-          // data-inject-svg
-        ></img>
-      </a> */}
-    </Fragment>
+    <Provider store={store}>
+      <Router>
+        <Fragment>
+          <Navbar />
+          <Route exact path="/" component={Homepage} />
+          <Switch>
+            <Route exact path="/verifyig" component={Verifyig} />
+            <Route exact path="/upload/gallery" component={UploadPhotosGallery} />
+            <Route exact path="/upload/instagram" component={UploadPhotosInstagram} />
+            <Route exact path="/upload" component={UploadPhotos} />
+            <Route exact path="/preview" component={null} />
+            <Route exact path="/account" component={null} />
+            <Route exact path="/shipping" component={null} />
+            <Route exact path="/delivery" component={null} />
+            <Route exact path="/payment" component={null} />
+          </Switch>
+        </Fragment>
+      </Router>
+    </Provider>
   );
 }
 
