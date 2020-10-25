@@ -40,7 +40,7 @@ const EmailSignUp = ({ signUpWithEmail, signInWithEmail, galleryUploadImages, au
     } else {
       console.log('Gallery images upload error')
     }
-  
+  }
 
   return (
     <div class="card card-body shadow">
@@ -55,10 +55,10 @@ const EmailSignUp = ({ signUpWithEmail, signInWithEmail, galleryUploadImages, au
           <div class="text-center text-small mb-3">
             Choose upload media
           </div>
-          <button
+          {/* <button
                 class="btn btn-block btn-primary bg-light text-primary w-100"
               >Gallery
-            </button>
+            </button> */}
                 <FirebaseContext.Consumer>
             {(fb) => (
                 <input type="file" multiple
@@ -83,7 +83,7 @@ const EmailSignUp = ({ signUpWithEmail, signInWithEmail, galleryUploadImages, au
                 <div class="text-center text-small">Instagram login required</div>
               </button> */}
         </Fragment>
-      ) : (
+        ) : (
         <Fragment>
           <h2 class="h5 text-center">{login ? 'Sign in with Email' : 'Sign up with Email' }</h2>
           <div class="text-center text-small mb-3">
