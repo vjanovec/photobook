@@ -2673,8 +2673,8 @@ input[type="button"].btn-block {
   color: #555A64;
   text-align: center;
   white-space: nowrap;
-  background-color: #EAEDF2;
-  border: 1px solid #EAEDF2;
+  /* background-color: #EAEDF2;
+  border: 1px solid #EAEDF2; */
   border-radius: 0.1875rem; }
   .input-group-text input[type="radio"],
   .input-group-text input[type="checkbox"] {

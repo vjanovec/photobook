@@ -2,7 +2,7 @@ import React, { Fragment, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 
-import Editor from './components/editor';
+import Editor from './components/pages/editor';
 import Navbar from './components/navbar';
 import SelectImages from './components/selectImages';
 import InstagramSignUp from './components/signUpMethods/instagramSignUp';
@@ -20,12 +20,16 @@ import UploadPhotos from './components/pages/uploadPhotos';
 import Homepage from './components/pages/homepage';
 import UploadPhotosGallery from './components/pages/uploadPhotosGallery';
 import UploadPhotosInstagram from './components/pages/uploadPhotosInstagram';
+import Account from './components/pages/account';
+import Shipping from './components/pages/shipping';
+import Payment from './components/pages/payment';
 import Verifyig from './verifyig';
 
 import "./App.css";
 import "./assets/css/custom.css";
 import "./assets/css/theme.css";
 import "./assets/css/loaders/loader-pulse.css";
+import "./assets/css/CardSectionStyles.css";
 
 // REDUX
 import { Provider } from 'react-redux';
@@ -43,11 +47,12 @@ function App() {
             <Route exact path="/upload/gallery" component={UploadPhotosGallery} />
             <Route exact path="/upload/instagram" component={UploadPhotosInstagram} />
             <Route exact path="/upload" component={UploadPhotos} />
+            <Route exact path="/editor" component={Editor} />
             <Route exact path="/preview" component={null} />
-            <Route exact path="/account" component={null} />
-            <Route exact path="/shipping" component={null} />
+            <Route exact path="/account" component={Account} />
+            <Route exact path="/shipping" component={Shipping} />
             <Route exact path="/delivery" component={null} />
-            <Route exact path="/payment" component={null} />
+            <Route exact path="/payment" component={Payment} />
           </Switch>
         </Fragment>
       </Router>

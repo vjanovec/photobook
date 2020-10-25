@@ -5,7 +5,7 @@ import { signUpWithInstagram } from "../../actions/auth";
 import { Link } from "react-router-dom";
 import imgInstagramTextLogo from "../../assets/img/instagram-text-logo.png";
 import { FirebaseContext } from "../../Firebase";
-import { getIgUserMedia, galleryUploadImage } from "../../actions/media";
+import { getIgUserMedia, galleryUploadImages } from "../../actions/media";
 
 // const username = "vojtech.janovec";
 // const code =
@@ -14,26 +14,29 @@ import { getIgUserMedia, galleryUploadImage } from "../../actions/media";
 const InstagramSignUp = ({
   signUpWithInstagram,
   getIgUserMedia,
-  galleryUploadImage,
+  galleryUploadImages,
   auth: { instagramProfile, idToken },
 }) => {
   const [loading, setLoading] = useState(false);
   const [images, setImages] = useState(null);
 
 
-  const dispatchIgUserMedia = (e) => {
+  const dispatchIgUserMedia = (e, fb) => {
     e.preventDefault();
     setLoading(true);
-    getIgUserMedia(idToken);
+    getIgUserMedia(idToken, fb);
   };
 
   const handleImageChange = (e, fb) => {
     if(e.target.files) {
-      console.log(e.target.files);
-      console.log(e.target.files[0]);
-      galleryUploadImage(e.target.files[0], fb);
+      const files = [];
+      for(var i = 0; i < e.target.files.length; i++) {
+        files.push(e.target.files[i]);
+      }
+      galleryUploadImages(files, fb);
+      
     } else {
-      console.log('handleimagechange error')
+      console.log('Gallery images upload error')
     }
   }
 
@@ -60,31 +63,36 @@ const InstagramSignUp = ({
           ) : (
             <Fragment>
               <div class="text-center text-small mb-3">Choose upload media</div>
-              <button
+              <FirebaseContext.Consumer>
+            {(fb) => (
+                <button
                 class="btn btn-primary btn-block text-white w-100"
                 type="submit"
-                onClick={(e) => dispatchIgUserMedia(e)}
+                onClick={(e) => dispatchIgUserMedia(e, fb)}
               >
                 Your Instagram account<br></br>
                 <div class="text-center text-small">Max 24 images per load</div>
               </button>
+            )}
+            </FirebaseContext.Consumer>
+              
               <button
                 class="btn btn-block bg-light text-primary w-100"
                 type="submit"
               >
                 Other Instagram account
               </button>
-              <button
+              {/* <button
                 class="btn btn-block btn-primary bg-light text-primary w-100"
-              >
+              > */}
                 <FirebaseContext.Consumer>
             {(fb) => (
-                <input type="file"
-                onChange={(e) => handleImageChange(e, fb)} className='w-100 h-100'/>
+                <input type="file" multiple
+                onChange={(e) => handleImageChange(e, fb)} className='custom-file-input'/>
             )}
             </FirebaseContext.Consumer>
-                Gallery
-              </button>
+                {/* Gallery
+              </button> */}
             </Fragment>
           )}
         </Fragment>
@@ -147,5 +155,5 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   signUpWithInstagram,
   getIgUserMedia,
-  galleryUploadImage
+  galleryUploadImages
 })(InstagramSignUp);

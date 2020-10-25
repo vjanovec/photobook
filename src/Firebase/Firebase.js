@@ -34,6 +34,9 @@ class Firebase {
   getStorageRef = () => {
     return this.storage.ref();
   }
+  getStorage = () => {
+    return this.storage;
+  }
 }
  
 export default Firebase;

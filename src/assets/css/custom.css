@@ -189,5 +189,59 @@ background-image: url("https://www.transparenttextures.com/patterns/sandpaper.pn
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
+.img-overlay {
+  /* position: relative; */
+  pointer-events:none;  
+}
+
+.img-overlay:after {
+  position: absolute;
+  content:"";
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  opacity: .75;
+  pointer-events:none;  
+}
+
+.overlay-primary:after {
+  background-color: #ce6161;
+  pointer-events:none;  
+}
   
-  
+.custom-file-input::-webkit-file-upload-button {
+  visibility: hidden;
+}
+.custom-file-input::before {
+  content: 'Gallery';
+  color: #fff;
+  background-color: #ce6161;
+  border-color: #ce6161;
+  box-shadow: none; }
+  .custom-file-input:hover {
+    color: #fff;
+    background-color: #c54444;
+    border-color: #c03c3c; }
+  .custom-file-input:focus, .custom-file-input.focus {
+    box-shadow: none, 0 0 0 0.2rem rgba(213, 121, 121, 0.5); }
+  .custom-file-input.disabled, .custom-file-input:disabled {
+    color: #fff;
+    background-color: #ce6161;
+    border-color: #ce6161; }
+  .custom-file-input:not(:disabled):not(.disabled):active, .custom-file-input:not(:disabled):not(.disabled).active,
+  .show > .custom-file-input.dropdown-toggle {
+    color: #fff;
+    background-color: #c03c3c;
+    border-color: #b73939; }
+    .custom-file-input:not(:disabled):not(.disabled):active:focus, .custom-file-input:not(:disabled):not(.disabled).active:focus,
+    .show > .custom-file-input.dropdown-toggle:focus {
+      box-shadow: 0 0 0 0.2rem rgba(213, 121, 121, 0.5); }
+
+.custom-file-input:hover::before {
+  border-color: none;
+}
+.custom-file-input:active::before {
+  background-color: #F7F9FC !important;
+}

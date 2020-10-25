@@ -26,7 +26,7 @@ body:not(.loaded) > div.loader {
   opacity: 1;
 }
 body:not(.loaded) {
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 body.loaded > div.loader {
   animation: hideLoader 0.5s linear 0.5s forwards;

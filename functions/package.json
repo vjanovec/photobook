@@ -15,6 +15,7 @@
   "main": "index.js",
   "dependencies": {
     "@google-cloud/storage": "^5.2.0",
+    "@stripe/stripe-js": "^1.9.0",
     "axios": "^0.19.2",
     "cors": "^2.8.5",
     "firebase-admin": "^8.13.0",
@@ -22,7 +23,8 @@
     "fs": "0.0.1-security",
     "http": "0.0.1-security",
     "path": "^0.12.7",
-    "querystring": "^0.2.0"
+    "querystring": "^0.2.0",
+    "stripe": "^8.92.0"
   },
   "devDependencies": {
     "eslint": "^5.12.0",

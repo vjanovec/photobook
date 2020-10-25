@@ -797,3 +797,53 @@ const handleMediaTypes = (data, media, access_token) => {
   });
 }
 */
+
+// PAYMENTS
+
+
+// Set your secret key. Remember to switch to your live secret key in production!
+// See your keys here: https://dashboard.stripe.com/account/apikeys
+const stripe = require('stripe')('sk_test_q57HQZHBzP3lpE3pZiX4ynAt00AxguFgxG');
+
+// const paymentIntent = await stripe.paymentIntents.create({
+//   amount: 1099,
+//   currency: 'czk',
+//   // Verify your integration in this guide by including this parameter
+//   metadata: {integration_check: 'accept_a_payment'},
+// });
+
+const createIntent = async() => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      resolve(stripe.paymentIntents.create({
+        amount: 20000,
+        currency: 'czk',
+        // Verify your integration in this guide by including this parameter
+        metadata: {integration_check: 'accept_a_payment'},
+      }));
+    } catch (err) {
+      if(err) {
+        reject(err);
+      }
+    }
+  })
+}
+
+const calculateOrderAmount = items => {
+  // Replace this constant with a calculation of the order's amount
+  // Calculate the order total on the server to prevent
+  // people from directly manipulating the amount on the client
+  return 1400;
+};
+
+exports.createPaymentIntent = functions.https.onRequest((request, response) => {
+  cors(request, response, async () => {
+    const { items } = request.body;
+    // Create a PaymentIntent with the order amount and currency
+    const paymentIntent = await stripe.paymentIntents.create({
+    amount: calculateOrderAmount(items),
+    currency: "usd"
+  });
+  response.status(200).json({clientSecret: paymentIntent.client_secret})
+  })
+})

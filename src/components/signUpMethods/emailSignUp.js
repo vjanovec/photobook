@@ -4,8 +4,10 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { signUpWithEmail, signInWithEmail } from "../../actions/auth";
 import { FirebaseContext } from "../../Firebase";
+import { galleryUploadImages } from "../../actions/media";
 
-const EmailSignUp = ({ signUpWithEmail, signInWithEmail, auth: { userUid, email, error } }) => {
+
+const EmailSignUp = ({ signUpWithEmail, signInWithEmail, galleryUploadImages, auth: { userUid, email, error }  }) => {
   const [formEmail, setFormEmail] = useState(null);
   const [password, setPassword] = useState(null);
   const [terms, setTerms] = useState(false);
@@ -26,6 +28,20 @@ const EmailSignUp = ({ signUpWithEmail, signInWithEmail, auth: { userUid, email,
     signInWithEmail(formEmail, password, fb);
   };
 
+  const handleImageChange = (e, fb) => {
+    console.log('handle gallery')
+    if(e.target.files) {
+      const files = [];
+      for(var i = 0; i < e.target.files.length; i++) {
+        files.push(e.target.files[i]);
+      }
+      galleryUploadImages(files, fb);
+      
+    } else {
+      console.log('Gallery images upload error')
+    }
+  
+
   return (
     <div class="card card-body shadow">
       {userUid ? (
@@ -40,14 +56,17 @@ const EmailSignUp = ({ signUpWithEmail, signInWithEmail, auth: { userUid, email,
             Choose upload media
           </div>
           <button
-                class="btn btn-primary btn-block text-white w-100"
-                type="submit"
-                
-              >
-                Gallery
-                
-              </button>
-              <button
+                class="btn btn-block btn-primary bg-light text-primary w-100"
+              >Gallery
+            </button>
+                <FirebaseContext.Consumer>
+            {(fb) => (
+                <input type="file" multiple
+                onChange={(e) => handleImageChange(e, fb)} className='w-100 h-100' className='d-none'/>
+            )}
+            </FirebaseContext.Consumer>
+            
+              {/* <button
                 class="btn btn-primary btn-block bg-light text-primary w-100"
                 type="submit"
                 
@@ -62,7 +81,7 @@ const EmailSignUp = ({ signUpWithEmail, signInWithEmail, auth: { userUid, email,
               >
                 Your Instagram account
                 <div class="text-center text-small">Instagram login required</div>
-              </button>
+              </button> */}
         </Fragment>
       ) : (
         <Fragment>
@@ -179,10 +198,11 @@ EmailSignUp.propTypes = {
   signUpWithEmail: PropTypes.func.isRequired,
   signInWithEmail: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
+  galleryUploadImages: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, { signUpWithEmail, signInWithEmail })(EmailSignUp);
+export default connect(mapStateToProps, { signUpWithEmail, signInWithEmail, galleryUploadImages })(EmailSignUp);
