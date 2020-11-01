@@ -9,7 +9,7 @@ import { useHistory } from 'react-router-dom';
 const SelectImages = ({ auth, media, selectPhoto }) => {
   const [page, setPage] = useState(1);
   // const [loading, setLoading] = useState(true);
-  const [totalPages, setTotalPages] = useState(null);
+  const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
     if (media) {   
@@ -33,14 +33,18 @@ const history = useHistory();
           <div className="col-6">  
           
             {media.media[page * 4 - 4] ? <div className={media.media[page *4 -4].selected ? 'img-overlay overlay-primary' : null}><img
-              src={media.media[page * 4 - 4].thumbnail_url} className='img-fluid' className={media.media[page *4 -4].selected ? 'img-fluid img-overlay' : 'img-fluid'} onClick={() => selectPhoto(page*4-4, media.media[page * 4 - 4])}
-            ></img></div> : <p>No image</p>}
+              src={media.media[page * 4 - 4].thumbnail_url} className='img-fluid img-clickable' onClick={() => selectPhoto(page*4-4, media.media[page * 4 - 4])}
+            ></img></div> : <div class="loader">
+            <div class="loading-animation"></div>
+          </div>}
           </div>
           <div className="col-6">
           
             {media.media[page * 4 - 3] ? <div className={media.media[page *4 -3].selected ? 'img-overlay overlay-primary' : null}><img
-              src={media.media[page * 4 - 3].thumbnail_url} className='img-fluid' onClick={() => selectPhoto(page*4-3, media.media[page * 4 - 3])}
-            ></img></div> : <p>No image</p>}
+              src={media.media[page * 4 - 3].thumbnail_url} className='img-fluid img-clickable' onClick={() => selectPhoto(page*4-3, media.media[page * 4 - 3])}
+            ></img></div> : <div class="loader">
+            <div class="loading-animation"></div>
+          </div>}
           </div>
           
         </div>
@@ -48,15 +52,19 @@ const history = useHistory();
           <div className="col-6">
           
             {media.media[page * 4 - 2] ? <div className={media.media[page *4 -2].selected ? 'img-overlay overlay-primary' : null}><img
-              src={media.media[page * 4 - 2].thumbnail_url} className='img-fluid' onClick={() => selectPhoto(page*4-2, media.media[page * 4 - 2])}
-            ></img></div> : <p>No image</p>}
+              src={media.media[page * 4 - 2].thumbnail_url} className='img-fluid img-clickable' onClick={() => selectPhoto(page*4-2, media.media[page * 4 - 2])}
+            ></img></div> : <div class="loader">
+            <div class="loading-animation"></div>
+          </div>}
             </div>
           
           <div className="col-6">
             
             {media.media[page * 4 - 1] ? <div className={media.media[page *4 -1].selected ? 'img-overlay overlay-primary' : null}><img
-              src={media.media[page * 4 - 1].thumbnail_url} className='img-fluid' onClick={() => selectPhoto(page*4-1, media.media[page * 4 - 1])}
-            ></img></div> : <p>No image</p>}
+              src={media.media[page * 4 - 1].thumbnail_url} className='img-fluid img-clickable' onClick={() => selectPhoto(page*4-1, media.media[page * 4 - 1])}
+            ></img></div> : <div class="loader">
+            <div class="loading-animation"></div>
+          </div>}
           </div>
         </div>
       </div>
@@ -68,7 +76,7 @@ const history = useHistory();
                 <a
                   class="page-link rounded"
                   aria-label="Previous"
-                  onClick={page !== 1 ? (() => setPage(page - 1)) : null}
+                  onClick={page !== 1 || page<1 ? (() => setPage(page - 1)) : null}
                 >
                   <svg
                     width="24"
@@ -88,33 +96,36 @@ const history = useHistory();
                   </svg>
                 </a>
               </li>
+              {/* FIST COLUMN */}
               <li className={page === 1 ? 'page-item active' : 'page-item'}>
-                {page == 1 ? <a class="page-link" onClick={() => setPage(1)}>
+                {page === 1 ? <a class="page-link" onClick={() => setPage(1)}>
                   1
                 </a> : null}
-                {page == totalPages ? <a class="page-link" onClick={() => setPage(page - 2)}>
+                {page === totalPages && page !== 1 && page >1 ? <a class="page-link" onClick={() => setPage(page - 2)}>
                   {page - 2}
                 </a> : null}
                 {page !== 1 && page !== totalPages ? <a class="page-link" onClick={() => setPage(page - 1)}>
                   {page - 1}
                 </a> : null}
               </li>
+              { /* SECOND COLUMN */}
               <li className={page !== 1 && page !== totalPages ? 'page-item active' : 'page-item'}>
               {page == 1 ? <a class="page-link" onClick={() => setPage(2)}>
                   2
                 </a> : null}
-                {page == totalPages ? <a class="page-link" onClick={() => setPage(page - 1)}>
+                {page == totalPages && page !== 1 && page >1 ? <a class="page-link" onClick={() => setPage(page - 1)}>
                   {page - 1}
                 </a> : null}
                 {page !== 1 && page !== totalPages ? <a class="page-link" onClick={() => setPage(page)}>
                   {page}
                 </a> : null}
               </li>
-              <li className={page === totalPages ? 'page-item active' : 'page-item'}>
-              {page == 1 ? <a class="page-link" onClick={() => setPage(3)}>
+              {/* THIRD COLUMN */}
+              <li className={page === totalPages && page !== 1 ? 'page-item active' : 'page-item'}>
+              {page === 1 && page !== totalPages ? <a class="page-link" onClick={() => setPage(3)}>
                   3
                 </a> : null}
-                {page == totalPages ? <a class="page-link" onClick={() => setPage(page)}>
+                {page == totalPages && page !== 1 && page >1 ? <a class="page-link" onClick={() => setPage(page)}>
                   {page}
                 </a> : null}
                 {page !== 1 && page !== totalPages ? <a class="page-link" onClick={() => setPage(page+1)}>
@@ -145,7 +156,7 @@ const history = useHistory();
           </nav>
         </div>
         <div class="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 pl-2 pr-2 pt-2">
-          <a href="#" class="btn btn-primary w-100" onClick={() => history.goBack()}>
+          <a href="#" class="btn btn-primary w-100" onClick={() => history.push('/upload')}>
             Upload
                 </a>
         </div>

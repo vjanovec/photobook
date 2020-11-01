@@ -6,6 +6,9 @@ import {
   useStripe,
   useElements
 } from "@stripe/react-stripe-js";
+
+import { useSelector } from 'react-redux'
+
 export default function CheckoutForm() {
   const [succeeded, setSucceeded] = useState(false);
   const [error, setError] = useState(null);
@@ -14,14 +17,34 @@ export default function CheckoutForm() {
   const [clientSecret, setClientSecret] = useState('');
   const stripe = useStripe();
   const elements = useElements();
+
+  const auth = useSelector(state => state.auth);
+  const user = useSelector(state => state.user);
+  
   useEffect(() => {
     // Create PaymentIntent as soon as the page loads
-    
+      
+      console.log(user);
       axios.post("https://us-central1-photobook-b74d7.cloudfunctions.net/createPaymentIntent", {
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({items: [{ id: "xl-tshirt" }]})
+        data: {
+          items: [{id: "testphotobook"}], 
+        customerDetails: {
+          metadata: {'uid': auth.userUid},
+          name: `${user.firstName} ${user.lastName}`,
+          email: user.email,
+          phone: '',
+            address: {
+              city: user.city,
+              country: user.country,
+              line1: user.address_l1,
+              line2: user.address_l2,
+              postal_code: user.zipcode,
+            },
+        }
+      }
       })
       .then(data => {
         setClientSecret(data.data.clientSecret);

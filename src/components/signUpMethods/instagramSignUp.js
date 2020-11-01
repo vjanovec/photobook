@@ -45,7 +45,7 @@ const InstagramSignUp = ({
 
 
   return (
-    <div class="card card-body shadow">
+    <div class="card card-body shadow overflow-hidden">
       {instagramProfile ? (
         <Fragment>
           <h2 class="h5 text-center">Upload photos</h2>
@@ -88,7 +88,7 @@ const InstagramSignUp = ({
                 <FirebaseContext.Consumer>
             {(fb) => (
                 <input type="file" multiple
-                onChange={(e) => handleImageChange(e, fb)} className='custom-file-input'/>
+                onChange={(e) => handleImageChange(e, fb)} className='custom-file-input-button'/>
             )}
             </FirebaseContext.Consumer>
                 {/* Gallery

@@ -812,38 +812,100 @@ const stripe = require('stripe')('sk_test_q57HQZHBzP3lpE3pZiX4ynAt00AxguFgxG');
 //   metadata: {integration_check: 'accept_a_payment'},
 // });
 
-const createIntent = async() => {
-  return new Promise(async (resolve, reject) => {
-    try {
-      resolve(stripe.paymentIntents.create({
-        amount: 20000,
-        currency: 'czk',
-        // Verify your integration in this guide by including this parameter
-        metadata: {integration_check: 'accept_a_payment'},
-      }));
-    } catch (err) {
-      if(err) {
-        reject(err);
-      }
-    }
-  })
-}
+// const createIntent = async() => {
+//   return new Promise(async (resolve, reject) => {
+//     try {
+//       resolve(stripe.paymentIntents.create({
+//         amount: 20000,
+//         currency: 'czk',
+//         // Verify your integration in this guide by including this parameter
+//         metadata: {integration_check: 'accept_a_payment'},
+//       }));
+//     } catch (err) {
+//       if(err) {
+//         reject(err);
+//       }
+//     }
+//   })
+// }
 
-const calculateOrderAmount = items => {
+
+
+
+
+
+
+
+
+
+const calculateOrderAmount = async items => {
   // Replace this constant with a calculation of the order's amount
   // Calculate the order total on the server to prevent
   // people from directly manipulating the amount on the client
-  return 1400;
-};
 
+// TODO ADD PRODUCT ID TO PARAMETERS
+// const product = await stripe.products.retrieve(
+//   productId
+// );
+
+const productId = 'prod_IHPmSSs9FYgmsi';
+try {
+    const units = items.length;
+    const pricePerUnit = await stripe.prices.list({
+      product: productId
+    });
+    functions.logger.info(pricePerUnit, { structuredData: true });
+    functions.logger.info(pricePerUnit.data[0].unit_amount, { structuredData: true });
+    functions.logger.info(units*parseInt(pricePerUnit.data[0].unit_amount), { structuredData: true });
+
+    return Math.round(units*parseInt(pricePerUnit.data[0].unit_amount));
+
+} catch(err) {
+  functions.logger.info(err, { structuredData: true });
+}
+};
 exports.createPaymentIntent = functions.https.onRequest((request, response) => {
   cors(request, response, async () => {
-    const { items } = request.body;
+    const { items, customerDetails } = request.body.data;    
+    functions.logger.info(customerDetails, { structuredData: true });
+
     // Create a PaymentIntent with the order amount and currency
+    try {
+    const customer = await stripe.customers.create({
+      metadata: {'uid': customerDetails.metadata.uid},
+      name: customerDetails.name,
+      email: customerDetails.email,
+      phone: customerDetails.phone,
+      address: {
+        city: customerDetails.address.city,
+        country: customerDetails.address.country,
+        line1: customerDetails.address.line1,
+        line2: customerDetails.address.line2,
+        postal_code: customerDetails.address.postal_code,
+      },
+      shipping: {
+        address: {
+          city: customerDetails.address.city,
+          country: customerDetails.address.country,
+          line1: customerDetails.address.line1,
+          line2: customerDetails.address.line2,
+          postal_code: customerDetails.address.postal_code,
+        },
+        name: customerDetails.name,
+        phone: customerDetails.phone,
+      },
+    });
+    functions.logger.info(customer, { structuredData: true });
+
     const paymentIntent = await stripe.paymentIntents.create({
-    amount: calculateOrderAmount(items),
-    currency: "usd"
+    amount: await calculateOrderAmount(items),
+    currency: "czk",
+    customer: customer.id
   });
   response.status(200).json({clientSecret: paymentIntent.client_secret})
+
+} catch(err) {
+  functions.logger.info(err, { structuredData: true });
+}
   })
 })

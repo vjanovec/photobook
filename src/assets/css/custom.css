@@ -194,7 +194,10 @@ background-image: url("https://www.transparenttextures.com/patterns/sandpaper.pn
   /* position: relative; */
   pointer-events:none;  
 }
+.img-clickable {
+  pointer-events: auto; 
 
+}
 .img-overlay:after {
   position: absolute;
   content:"";
@@ -203,45 +206,45 @@ background-image: url("https://www.transparenttextures.com/patterns/sandpaper.pn
   width:100%;
   height:100%;
   opacity: .75;
-  pointer-events:none;  
+  pointer-events: none;
 }
 
 .overlay-primary:after {
   background-color: #ce6161;
   pointer-events:none;  
+  z-index: 1;
 }
-  
-.custom-file-input::-webkit-file-upload-button {
+.custom-file-input-button {
+  visibility: visible;
+  opacity: 1;
+}
+.custom-file-input-button::-webkit-file-upload-button {
   visibility: hidden;
 }
-.custom-file-input::before {
+.custom-file-input-button::before {
+  opacity: 1;
+  margin-top: .5rem;
+  visibility: visible;
+  overflow: hidden;
   content: 'Gallery';
-  color: #fff;
-  background-color: #ce6161;
-  border-color: #ce6161;
-  box-shadow: none; }
-  .custom-file-input:hover {
-    color: #fff;
-    background-color: #c54444;
-    border-color: #c03c3c; }
-  .custom-file-input:focus, .custom-file-input.focus {
-    box-shadow: none, 0 0 0 0.2rem rgba(213, 121, 121, 0.5); }
-  .custom-file-input.disabled, .custom-file-input:disabled {
-    color: #fff;
-    background-color: #ce6161;
-    border-color: #ce6161; }
-  .custom-file-input:not(:disabled):not(.disabled):active, .custom-file-input:not(:disabled):not(.disabled).active,
-  .show > .custom-file-input.dropdown-toggle {
-    color: #fff;
-    background-color: #c03c3c;
-    border-color: #b73939; }
-    .custom-file-input:not(:disabled):not(.disabled):active:focus, .custom-file-input:not(:disabled):not(.disabled).active:focus,
-    .show > .custom-file-input.dropdown-toggle:focus {
-      box-shadow: 0 0 0 0.2rem rgba(213, 121, 121, 0.5); }
-
-.custom-file-input:hover::before {
+  background-color: #f7f9fc!important;
   border-color: none;
-}
-.custom-file-input:active::before {
-  background-color: #F7F9FC !important;
-}
+  box-shadow: none;
+  display: block;
+  width: 100%;
+  display: inline-block;
+  font-weight: 700;
+  color: #c54444;
+  text-align: center;
+  vertical-align: middle;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  background-color: transparent;
+  border: 2px solid transparent;
+  padding: 0.625rem 1.5rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  border-radius: 100px;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; }

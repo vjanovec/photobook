@@ -43,7 +43,7 @@ const EmailSignUp = ({ signUpWithEmail, signInWithEmail, galleryUploadImages, au
   }
 
   return (
-    <div class="card card-body shadow">
+    <div class="card card-body shadow overflow-hidden">
       {userUid ? (
         <Fragment>
           <h2 class="h5 text-center">Upload photos</h2>
@@ -62,7 +62,7 @@ const EmailSignUp = ({ signUpWithEmail, signInWithEmail, galleryUploadImages, au
                 <FirebaseContext.Consumer>
             {(fb) => (
                 <input type="file" multiple
-                onChange={(e) => handleImageChange(e, fb)} className='w-100 h-100' className='d-none'/>
+                onChange={(e) => handleImageChange(e, fb)} className='w-100 h-100' className='custom-file-input-button'/>
             )}
             </FirebaseContext.Consumer>
             
