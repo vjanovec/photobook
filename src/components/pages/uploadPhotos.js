@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Layout from '../layout';
-import UploadPhotosHeading from '../uploadPhotosHeading';
+import UploadPhotosHeading from '../headings/uploadPhotosHeading';
 import InstagramSignUp from '../signUpMethods/instagramSignUp';
 import StepList from '../stepList';
 

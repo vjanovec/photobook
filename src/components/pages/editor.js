@@ -8,7 +8,7 @@ import InstagramSignUp from '../signUpMethods/instagramSignUp';
 import EmailSignUp from '../signUpMethods/emailSignUp';
 import StepList from '../stepList';
 import SmallBookPreview from '../smallBookPreview';
-import UploadPhotosHeading from '../uploadPhotosHeading';
+import UploadPhotosHeading from '../headings/uploadPhotosHeading';
 import StartHeading from '../startHeading';
 import AccountDetailsForm from '../accountDetailsForm';
 import ShippingDetails from '../shippingDetails';

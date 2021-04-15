@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import UploadPhotosHeading from '../uploadPhotosHeading';
+import UploadPhotosHeading from '../headings/uploadPhotosHeading';
 import EmailSignUp from '../signUpMethods/emailSignUp';
 import Layout from '../layout';
 

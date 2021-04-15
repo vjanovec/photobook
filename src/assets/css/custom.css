@@ -248,3 +248,140 @@ background-image: url("https://www.transparenttextures.com/patterns/sandpaper.pn
   line-height: 1.5;
   border-radius: 100px;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; }
+  
+  .editor-book {
+    display: flex;
+    flex-direction: row;
+  }
+  .editor-page {
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+    cursor: pointer;
+    user-select: none;
+    background-color: #f0f0f0;
+  }
+  
+  /* .editor-page:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    transition: background 0.7s;
+    z-index: 2;
+  }
+  .editor-page:nth-child(odd) {
+    pointer-events: all;
+    transform: rotateY(0deg);
+    border-radius: 0 4px 4px 0;
+    background-image: linear-gradient(to right, rgba(0,0,0,.15) 0%, rgba(0,0,0,0) 10%);
+  }
+  .editor-page:nth-child(odd):hover {
+    transform: rotateY(-15deg);
+  }
+  .editor-page:nth-child(odd):hover:before {
+    background: rgba(0, 0, 0, 0.03);
+  }
+  .editor-page:nth-child(odd):before {
+    background: rgba(0, 0, 0, 0);
+  }
+  .editor-page:nth-child(even) {
+    pointer-events: none;
+    transform: rotateY(180deg);
+    transform-origin: 100% 0;
+    border-radius: 4px 0 0 4px;
+    border-color: black;
+    background-image: linear-gradient(to left, rgba(0,0,0,.12) 0%, rgba(0,0,0,0) 10%);
+  }
+  .editor-page:nth-child(even):before {
+    background: rgba(0, 0, 0, 0.2);
+  }
+  .editor-page.grabbing {
+    transition: none;
+  }
+  .editor-page-l:nth-child(odd) {
+    pointer-events: none;
+    transform: rotateY(-180deg);
+  }
+  .editor-page-l:nth-child(even) {
+    pointer-events: all;
+    transform: rotateY(0deg);
+  }
+  .editor-page-l:nth-child(even):hover {
+    transform: rotateY(15deg);
+  }
+  .book .page.flipped:nth-child(even):hover:before {
+    background: rgba(0, 0, 0, 0.03);
+  }
+  .editor-page-l:nth-child(even):before {
+    background: rgba(0, 0, 0, 0);
+  } */
+
+  .editor-page-right {
+    background-image: linear-gradient(to right, rgba(0,0,0,.15) 0%, rgba(0,0,0,0) 10%);
+    transform: rotateY(-15deg);
+    margin-left: -1vw;
+  }
+
+  .editor-page-left {
+    background-image: linear-gradient(to left, rgba(0,0,0,.12) 0%, rgba(0,0,0,0) 10%);
+    transform: rotateY(15deg);
+    margin-right: -1vw;
+
+  }
+
+  .editor-page-inner-80 {
+    width: 80%;
+    height: 80%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .editor-inner-border {
+    border: solid 2px#c54444;
+  }
+  .editor-page-inner-90 {
+    width: 90%;
+    height: 90%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .editor-page-inner-95 {
+    width: 95%;
+    height: 95%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+
+  .editor-page-insert-image {
+    width: 30%;
+    height: 30%;
+    max-width: 30%;
+    max-height: 30%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    color: #c54444;
+    fill: #c54444;
+
+  }
+  .btn-save-crop {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 1030; }
+
+  .btn-reload-page {
+    position: fixed;
+    bottom: 2rem;
+    left: 2rem;
+    z-index: 1030; }
